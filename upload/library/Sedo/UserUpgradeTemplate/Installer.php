@@ -17,7 +17,6 @@ class Sedo_UserUpgradeTemplate_Installer
 				self::addColumnIfNotExist($db, $table, 'sedo_template_name', "VARBINARY(50) NOT NULL DEFAULT ''");
 			}
 		}
-			break;
 	}
 
 	public static function uninstall()
