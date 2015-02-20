@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="sedo_userupgrade_template" title="Template access for user upgrades and pages" version_string="1.0.0" version_id="1" url="" install_callback_class="" install_callback_method="" uninstall_callback_class="" uninstall_callback_method="">
+  <admin_navigation/>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates>
+    <template title="sedo_user_upgrade_edit"><![CDATA[	<xen:textboxunit label="{xen:phrase template_name}:" name="sedo_template_name" value="{$data.sedo_template_name}" explain="{xen:phrase sedo_user_upgrade_template_hint}" size="40" />
+]]></template>
+  </admin_templates>
+  <admin_template_modifications>
+    <modification template="user_upgrade_edit" modification_key="sedo_user_ugrade_edit_template" description="Template setting for user upgrade" execution_order="20" enabled="1" action="str_replace">
+      <find><![CDATA[<xen:submitunit]]></find>
+      <replace><![CDATA[<xen:include template="sedo_user_upgrade_edit">
+	<xen:map from="$upgrade" to="$data" />
+</xen:include>
+$0]]></replace>
+    </modification>
+    <modification template="help_page_edit" modification_key="sedo_user_ugrade_edit_template_helppage" description="Template setting for help page edit" execution_order="20" enabled="1" action="str_replace">
+      <find><![CDATA[<xen:submitunit]]></find>
+      <replace><![CDATA[<xen:include template="sedo_user_upgrade_edit">
+	<xen:map from="$page" to="$data" />
+</xen:include>
+$0]]></replace>
+    </modification>
+    <modification template="page_edit" modification_key="sedo_user_ugrade_edit_template_page" description="Template setting for page edit" execution_order="20" enabled="1" action="str_replace">
+      <find><![CDATA[<xen:submitunit]]></find>
+      <replace><![CDATA[<xen:include template="sedo_user_upgrade_edit">
+	<xen:map from="$page" to="$data" />
+</xen:include>
+$0]]></replace>
+    </modification>
+  </admin_template_modifications>
+  <code_events/>
+  <code_event_listeners>
+    <listener event_id="load_class_datawriter" execute_order="10" callback_class="Sedo_UserUpgradeTemplate_Listener" callback_method="extendDwUserUpgrade" active="1" hint="XenForo_DataWriter_UserUpgrade" description="Extend XenForo_DataWriter_UserUpgrade"/>
+    <listener event_id="load_class_datawriter" execute_order="10" callback_class="Sedo_UserUpgradeTemplate_Listener" callback_method="extendDwPage" active="1" hint="XenForo_DataWriter_Page" description="Extend XenForo_DataWriter_Page"/>
+    <listener event_id="load_class_datawriter" execute_order="10" callback_class="Sedo_UserUpgradeTemplate_Listener" callback_method="extendDwHelpPage" active="1" hint="XenForo_DataWriter_HelpPage" description="Extend XenForo_DataWriter_HelpPage"/>
+    <listener event_id="load_class_view" execute_order="10" callback_class="Sedo_UserUpgradeTemplate_Listener" callback_method="extendViewPublicAccountUpgrades" active="1" hint="XenForo_ViewPublic_Account_Upgrades" description="Extend ViewPublic AccountUpgrades"/>
+    <listener event_id="load_class_view" execute_order="10" callback_class="Sedo_UserUpgradeTemplate_Listener" callback_method="extendViewPublicPage" active="1" hint="XenForo_ViewPublic_Page_View" description="Extend ViewPublic Page"/>
+    <listener event_id="load_class_view" execute_order="10" callback_class="Sedo_UserUpgradeTemplate_Listener" callback_method="extendViewPublicHelpPage" active="1" hint="XenForo_ViewPublic_Help_Page" description="Extend ViewPublic Help Page"/>
+  </code_event_listeners>
+  <cron/>
+  <email_templates/>
+  <email_template_modifications/>
+  <optiongroups/>
+  <permissions>
+    <permission_groups/>
+    <permissions/>
+    <interface_groups/>
+  </permissions>
+  <phrases>
+    <phrase title="sedo_user_upgrade_template_hint" version_id="1" version_string="1.0.0"><![CDATA[If you want to use a template instead of the above description, write here an existed template name.]]></phrase>
+  </phrases>
+  <route_prefixes/>
+  <style_properties/>
+  <templates>
+    <template title="sedo_userupgrade_template_test" version_id="1" version_string="1.0.0"><![CDATA[<p>This is a <b>Test</b> description for the userupgrade {$upgrade.title}</p>
+
+<div class="messageText ugc baseHtml">
+	<xen:set var="$bbCode_paragraph">[center]The following [b]test[/b] is using Bb Codes[/center]</xen:set>
+      	{xen:helper bbCode, $bbCodeParser, $bbCode_paragraph}
+</div>
+
+]]></template>
+  </templates>
+  <public_template_modifications/>
+  <bb_code_media_sites/>
+  <bb_codes/>
+</addon>
