@@ -1,29 +1,30 @@
 <?php
 class Sedo_UserUpgradeTemplate_Installer
 {
-	public static $tables = array('xf_help_page', 'xf_user_upgrade', 'xf_page');
+	protected static $_tables = array('xf_help_page', 'xf_user_upgrade', 'xf_page');
 
 	public static function install($addon)
 	{
 		$db = XenForo_Application::get('db');
-		
+
 		if(empty($addon))
 		{
 			//Force uninstall on fresh install
 			self::uninstall();
 			
-			foreach(self::$tables as $table)
+			foreach(self::$_tables as $table)
 			{
 				self::addColumnIfNotExist($db, $table, 'sedo_template_name', "VARBINARY(50) NOT NULL DEFAULT ''");
 			}
 		}
+			break;
 	}
 
 	public static function uninstall()
 	{
 		$db = XenForo_Application::get('db');
 
-		foreach(self::$tables as $table)
+		foreach(self::$_tables as $table)
 		{
 			if ($db->fetchRow("SHOW COLUMNS FROM $table WHERE Field = ?", 'sedo_template_name'))
 			{
